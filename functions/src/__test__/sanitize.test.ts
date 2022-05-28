@@ -1,0 +1,91 @@
+import { sanitizeCursusUsers } from "../sanitize";
+import { CursusUser } from "../types/CursusUser";
+
+test("test sanitizeCursusUsers", () => {
+  const cursusUsers: CursusUser[] = [
+    {
+      grade: null,
+      level: 0,
+      skills: [],
+      blackholed_at: null,
+      id: 42,
+      begin_at: "1942-01-01T00:00:00.000",
+      end_at: null,
+      cursus_id: 42,
+      has_coalition: false,
+      created_at: "1942-01-01T00:00:00.000",
+      updated_at: "1942-01-01T00:00:00.000",
+      user: {
+        id: 42,
+        email: "mail@example.com",
+        login: "login",
+        first_name: "firstname",
+        last_name: "lastname",
+        usual_full_name: "usualfullname",
+        usual_first_name: null,
+        url: "http://example.com",
+        phone: "hidden",
+        displayname: "displayname",
+        image_url: "http://example.com",
+        new_image_url: "http://example.com",
+        "staff?": false,
+        correction_point: 42,
+        pool_month: null,
+        pool_year: null,
+        location: "earth",
+        wallet: 42,
+        anonymize_date: "1942-01-01T00:00:00.000",
+        data_erasure_date: "1942-01-01T00:00:00.000",
+        created_at: "1942-01-01T00:00:00.000",
+        updated_at: "1942-01-01T00:00:00.000",
+        alumni: false,
+        "is_launched?": false,
+      },
+      cursus: {
+        id: 42,
+        created_at: "1942-01-01T00:00:00.000",
+        name: "cursusname",
+        slug: "cursusslug",
+      },
+      launcher: null,
+    },
+  ];
+  const expectedCursusUsers = [
+    {
+      grade: null,
+      level: 0,
+      skills: [],
+      blackholed_at: null,
+      id: 42,
+      begin_at: "1942-01-01T00:00:00.000",
+      end_at: null,
+      cursus_id: 42,
+      has_coalition: false,
+      created_at: "1942-01-01T00:00:00.000",
+      updated_at: "1942-01-01T00:00:00.000",
+      user: {
+        id: 42,
+        "staff?": false,
+        correction_point: 42,
+        pool_month: null,
+        pool_year: null,
+        wallet: 42,
+        anonymize_date: "1942-01-01T00:00:00.000",
+        data_erasure_date: "1942-01-01T00:00:00.000",
+        created_at: "1942-01-01T00:00:00.000",
+        updated_at: "1942-01-01T00:00:00.000",
+        alumni: false,
+        "is_launched?": false,
+      },
+      cursus: {
+        id: 42,
+        created_at: "1942-01-01T00:00:00.000",
+        name: "cursusname",
+        slug: "cursusslug",
+      },
+      launcher: null,
+    },
+  ];
+  sanitizeCursusUsers(cursusUsers);
+  expect(cursusUsers).toEqual(expectedCursusUsers);
+});
