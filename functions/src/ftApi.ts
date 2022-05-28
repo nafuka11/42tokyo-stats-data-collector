@@ -2,9 +2,11 @@ import { isBoom } from "@hapi/boom";
 import axios, { AxiosInstance } from "axios";
 import * as functions from "firebase-functions";
 import { AccessToken, ClientCredentials } from "simple-oauth2";
+import parseLinkHeader = require("parse-link-header");
 import { CAMPUS_ID, CURSUS_ID, FT_API_ENDPOINT } from "./constants";
 import { getEnv } from "./getEnv";
-import parseLinkHeader = require("parse-link-header");
+import { CursusUser } from "./types/CursusUser";
+import { sleep } from "./sleep";
 
 export const initClient = (): ClientCredentials => {
   const clientId = getEnv("FT_CLIENT_ID");
@@ -90,10 +92,6 @@ const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
   });
 
   return axiosInstance;
-};
-
-const sleep = (ms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
 const getCursusUser = async (
