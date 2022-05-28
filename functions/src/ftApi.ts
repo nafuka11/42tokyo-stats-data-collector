@@ -44,7 +44,7 @@ export const fetchAccessToken = async (
 export const getCursusUsers = async (accessToken: AccessToken) => {
   const axiosInstance = initAxiosInstance(accessToken);
 
-  let cursusUsers: any[] = [];
+  let cursusUsers: CursusUser[] = [];
   let pageNumber = 1;
   let hasNext = true;
 
