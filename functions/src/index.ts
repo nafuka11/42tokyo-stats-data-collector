@@ -1,8 +1,7 @@
 import * as functions from "firebase-functions";
 import * as admin from "firebase-admin";
 import { getStorage } from "firebase-admin/storage";
-import { saveCursusUsersToStorage } from "./collectCursusUsers";
-import { TIMEOUT_SECONDS } from "./constants";
+import { SCHEDULE, TIMEOUT_SECONDS, TIMEZONE } from "./constants";
 
 // Start writing Firebase Functions
 // https://firebase.google.com/docs/functions/typescript
