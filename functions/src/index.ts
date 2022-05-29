@@ -10,8 +10,8 @@ admin.initializeApp();
 
 export const collectCursusUsers = functions
   .runWith({ timeoutSeconds: TIMEOUT_SECONDS })
-  .pubsub.schedule("every day 00:00")
-  .timeZone("Asia/Tokyo")
+  .pubsub.schedule(SCHEDULE)
+  .timeZone(TIMEZONE)
   .onRun(async () => {
     const bucket = getStorage().bucket();
     await saveCursusUsersToStorage(bucket);
