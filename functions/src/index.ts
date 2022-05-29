@@ -8,7 +8,10 @@ import { getEnv } from "./utils/getEnv";
 admin.initializeApp();
 
 export const collectCursusUsers = functions
-  .runWith({ timeoutSeconds: TIMEOUT_SECONDS })
+  .runWith({
+    timeoutSeconds: TIMEOUT_SECONDS,
+    secrets: ["FT_CLIENT_ID", "FT_CLIENT_SECRET"],
+  })
   .pubsub.schedule(SCHEDULE)
   .timeZone(TIMEZONE)
   .onRun(async () => {
