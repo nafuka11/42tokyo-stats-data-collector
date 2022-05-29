@@ -1,6 +1,6 @@
 import { Bucket } from "@google-cloud/storage";
 import { format } from "date-fns";
-import { CursusUser } from "./types/CursusUser";
+import { CursusUser } from "../types/CursusUser";
 
 export const saveCursusUsersToBucket = async (
   bucket: Bucket,

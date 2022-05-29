@@ -1,7 +1,7 @@
-import { fetchAccessToken, getCursusUsers, initClient } from "./ftApi";
+import { fetchAccessToken, getCursusUsers, initClient } from "./utils/ftApi";
 import { Bucket } from "@google-cloud/storage";
-import { sanitizeCursusUsers } from "./sanitize";
-import { saveCursusUsersToBucket } from "./bucket";
+import { sanitizeCursusUsers } from "./utils/sanitize";
+import { saveCursusUsersToBucket } from "./utils/bucket";
 
 export const saveCursusUsers = async (bucket: Bucket) => {
   const client = initClient();
