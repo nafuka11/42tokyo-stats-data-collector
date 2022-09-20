@@ -20,7 +20,7 @@
     "@types/parse-link-header": "^2.0.0",
     "@types/simple-oauth2": "^4.1.1",
     "axios": "^0.27.2",
-    "date-fns": "^2.29.2",
+    "date-fns": "^2.29.3",
     "firebase-admin": "^11.0.1",
     "firebase-functions": "^3.23.0",
     "parse-link-header": "^2.0.0",
