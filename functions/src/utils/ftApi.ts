@@ -1,5 +1,9 @@
 import { isBoom } from "@hapi/boom";
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
+import axiosRetry, {
+  exponentialDelay,
+  isNetworkOrIdempotentRequestError,
+} from "axios-retry";
 import * as functions from "firebase-functions";
 import { AccessToken, ClientCredentials } from "simple-oauth2";
 import parseLinkHeader = require("parse-link-header");
@@ -37,7 +41,9 @@ export const fetchAccessToken = async (
     return accessToken;
   } catch (error: unknown) {
     if (isBoom(error)) {
-      console.log(error.output);
+      functions.logger.error("error with fetchAccessToken", {
+        error: error.output,
+      });
     }
     throw error;
   }
@@ -63,12 +69,24 @@ export const getCursusUsers = async (accessToken: AccessToken) => {
 };
 
 const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
-  const axiosInstance = axios.create({
+  const axiosInstance = createAxiosInstance(accessToken);
+
+  setAxiosInterceptor(axiosInstance);
+  setAxiosRetry(axiosInstance);
+
+  return axiosInstance;
+};
+
+const createAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
+  return axios.create({
     baseURL: FT_API_ENDPOINT,
     headers: {
       authorization: `Bearer ${accessToken.token.access_token}`,
     },
   });
+};
+
+const setAxiosInterceptor = (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(async (response) => {
     const secondlyRateLimit = parseInt(
       response.headers["x-secondly-ratelimit-limit"],
@@ -90,8 +108,25 @@ const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
     });
     return response;
   });
+};
 
-  return axiosInstance;
+const setAxiosRetry = (axiosInstance: AxiosInstance) => {
+  const rateLimitExceededError = (error: AxiosError) => {
+    return error.response?.status === 429;
+  };
+
+  axiosRetry(axiosInstance, {
+    retries: 5,
+    retryDelay: (retryCount: number) => exponentialDelay(retryCount) + 500,
+    retryCondition: (error: AxiosError) =>
+      isNetworkOrIdempotentRequestError(error) || rateLimitExceededError(error),
+    onRetry: (retryCount: number, error: AxiosError) => {
+      functions.logger.error("retry because AxiosError occurred", {
+        retryCount,
+        error,
+      });
+    },
+  });
 };
 
 const getCursusUser = async (
