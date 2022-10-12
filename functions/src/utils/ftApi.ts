@@ -37,7 +37,9 @@ export const fetchAccessToken = async (
     return accessToken;
   } catch (error: unknown) {
     if (isBoom(error)) {
-      console.log(error.output);
+      functions.logger.error("error with fetchAccessToken", {
+        error: error.output,
+      });
     }
     throw error;
   }
