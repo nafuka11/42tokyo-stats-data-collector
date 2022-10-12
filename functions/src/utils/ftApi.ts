@@ -1,5 +1,9 @@
 import { isBoom } from "@hapi/boom";
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosError, AxiosInstance } from "axios";
+import axiosRetry, {
+  exponentialDelay,
+  isNetworkOrIdempotentRequestError,
+} from "axios-retry";
 import * as functions from "firebase-functions";
 import { AccessToken, ClientCredentials } from "simple-oauth2";
 import parseLinkHeader = require("parse-link-header");
@@ -91,6 +95,23 @@ const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
       url: response.config.params,
     });
     return response;
+  });
+
+  const rateLimitExceededError = (error: AxiosError) => {
+    return error.response?.status === 429;
+  };
+
+  axiosRetry(axiosInstance, {
+    retries: 5,
+    retryDelay: (retryCount: number) => exponentialDelay(retryCount) + 500,
+    retryCondition: (error: AxiosError) =>
+      isNetworkOrIdempotentRequestError(error) || rateLimitExceededError(error),
+    onRetry: (retryCount: number, error: AxiosError) => {
+      functions.logger.error("retry because AxiosError occurred", {
+        retryCount,
+        error,
+      });
+    },
   });
 
   return axiosInstance;
