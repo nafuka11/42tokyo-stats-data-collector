@@ -69,12 +69,24 @@ export const getCursusUsers = async (accessToken: AccessToken) => {
 };
 
 const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
-  const axiosInstance = axios.create({
+  const axiosInstance = createAxiosInstance(accessToken);
+
+  setAxiosInterceptor(axiosInstance);
+  setAxiosRetry(axiosInstance);
+
+  return axiosInstance;
+};
+
+const createAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
+  return axios.create({
     baseURL: FT_API_ENDPOINT,
     headers: {
       authorization: `Bearer ${accessToken.token.access_token}`,
     },
   });
+};
+
+const setAxiosInterceptor = (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(async (response) => {
     const secondlyRateLimit = parseInt(
       response.headers["x-secondly-ratelimit-limit"],
@@ -96,7 +108,9 @@ const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
     });
     return response;
   });
+};
 
+const setAxiosRetry = (axiosInstance: AxiosInstance) => {
   const rateLimitExceededError = (error: AxiosError) => {
     return error.response?.status === 429;
   };
@@ -113,8 +127,6 @@ const initAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
       });
     },
   });
-
-  return axiosInstance;
 };
 
 const getCursusUser = async (
