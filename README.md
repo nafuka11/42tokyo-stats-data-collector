@@ -6,6 +6,8 @@
 
 - Firebaseプロジェクト（Blazeプラン）
 - [Firebase CLI](https://github.com/firebase/firebase-tools)
+- Node.js v16
+- JDK v11以上
 - [42 API](https://api.intra.42.fr/apidoc)
 
 ## 使用するリソース
@@ -54,9 +56,21 @@ Secret管理に関するコマンドの詳細については、公式ドキュ�
 
 ## コマンド
 
-以下のコマンドは `functions` ディレクトリで実行します。
+### セットアップ
+
+Firebaseプロジェクトを現在のディレクトリに関連づけます。
+
+以下のコマンドを、リポジトリのルートディレクトリで実行してください。
+```bash
+firebase use --add
+? Which project do you want to add? <Firebaseプロジェクトを選択>
+? What alias do you want to use for this project? (e.g. staging) default
+```
+コマンド実行後、リポジトリのルートディレクトリに `.firebaserc` が生成されます。
 
 ### 動作確認
+
+以下のコマンドは `functions` ディレクトリで実行します。
 
 1. Cloud Storageををローカルで動作させるためのエミュレータを起動
 
@@ -65,6 +79,8 @@ Secret管理に関するコマンドの詳細については、公式ドキュ�
    ```
 
 1. Cloud Functionsをローカルで実行するためのエミュレータを起動
+
+   `yarn storage` とは別のTerminalで実行してください。
 
    ```bash
    yarn shell
