@@ -44,6 +44,21 @@ BUCKET_NAME
    firebase functions:secrets:access FT_CLIENT_SECRET
    ```
 
+1. 不要になった以前のバージョンのSecretを削除します。
+
+   ```bash
+   firebase functions:secrets:prune
+   ```
+
+1. Secretのバージョンの有効/無効を確認します。
+
+   ```bash
+   firebase functions:secrets:get FT_CLIENT_ID
+   firebase functions:secrets:get FT_CLIENT_SECRET
+   ```
+
+   Secret削除後、それぞれのSecretで1つのバージョンだけ `ENABLED` になっているはずです。
+
 Secret管理に関するコマンドの詳細については、公式ドキュメントを参照ください。
 
 [Configure your environment  \|  Firebase Documentation](https://firebase.google.com/docs/functions/config-env#secret-manager)
