@@ -1122,10 +1122,10 @@
     "@types/mime" "^1"
     "@types/node" "*"
 
-"@types/simple-oauth2@^4.1.1":
-  version "4.1.1"
-  resolved "https://registry.yarnpkg.com/@types/simple-oauth2/-/simple-oauth2-4.1.1.tgz#7c2326cb4c5f967d8283c8c71b98769885ad6dfd"
-  integrity sha512-8jqhfUFb0FoCl2Od4czprB7ubM8/Fuo3tg+vQZ00zYtPcNLogGyDgm2DVfVvD3NYXK7AscKOXSaW33NHUWpNBg==
+"@types/simple-oauth2@^4.1.2":
+  version "4.1.2"
+  resolved "https://registry.yarnpkg.com/@types/simple-oauth2/-/simple-oauth2-4.1.2.tgz#d846331d4820b3fc6cca3adab693d2c6bb783c1d"
+  integrity sha512-HiF2R+jmC0xJZu2Wrkf2HiQANWJyH/W0HeS1HErOYM97t+JNts9yXbkHNJ5WSyVM7Q3T+SCi1DIJyP4ALY3tZw==
 
 "@types/stack-utils@^2.0.0":
   version "2.0.1"
