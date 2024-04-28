@@ -89,11 +89,11 @@ const createAxiosInstance = (accessToken: AccessToken): AxiosInstance => {
 const setAxiosInterceptor = (axiosInstance: AxiosInstance) => {
   axiosInstance.interceptors.response.use(async (response) => {
     const secondlyRateLimit = parseInt(
-      response.headers["x-secondly-ratelimit-limit"],
+      response.headers["x-secondly-ratelimit-limit"] || "2",
       10
     );
     const secondlyRateLimitRemaining = parseInt(
-      response.headers["x-secondly-ratelimit-remaining"],
+      response.headers["x-secondly-ratelimit-remaining"] || "0",
       10
     );
 
