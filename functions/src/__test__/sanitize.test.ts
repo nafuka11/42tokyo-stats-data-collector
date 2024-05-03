@@ -1,4 +1,4 @@
-import { sanitizeCursusUsers } from "../sanitize";
+import { sanitizeCursusUsers } from "../utils/sanitize";
 import { CursusUser } from "../types/CursusUser";
 
 test("test sanitizeCursusUsers", () => {
