@@ -22,7 +22,7 @@
     "axios": "^0.28.0",
     "axios-retry": "^3.9.1",
     "date-fns": "^2.29.3",
-    "firebase-admin": "^11.5.0",
+    "firebase-admin": "^11.11.1",
     "firebase-functions": "^4.9.0",
     "parse-link-header": "^2.0.0",
     "simple-oauth2": "^5.0.0"
