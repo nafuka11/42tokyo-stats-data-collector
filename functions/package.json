@@ -19,7 +19,7 @@
   "dependencies": {
     "@types/parse-link-header": "^2.0.1",
     "@types/simple-oauth2": "^5.0.7",
-    "axios": "^0.28.0",
+    "axios": "^0.29.0",
     "axios-retry": "^3.9.1",
     "date-fns": "^2.29.3",
     "firebase-admin": "^11.11.1",
