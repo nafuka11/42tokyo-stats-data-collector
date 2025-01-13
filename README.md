@@ -1,5 +1,8 @@
 # 42tokyo-stats-data-collector
 
+> [!CAUTION]
+> 42Tokyo Statsのクローズに伴い、このリポジトリはアーカイブされています。
+
 [42tokyo-stats-website](https://github.com/nafuka11/42tokyo-stats-website) 用のデータを収集し、Cloud Storageに保管するためのCloud Functionsです。
 
 ## 必要物
